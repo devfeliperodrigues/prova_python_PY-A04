@@ -1,0 +1,49 @@
+'''[PY-A04] Desenvolva um programa em Python que permita ao usuário digitar várias notas. Em seguida, crie uma função chamada "calcular_media" que irá receber as notas digitadas e calcular a média do aluno. 
+Também crie uma função chamada "verificar_situacao" que, com base na média calculada, irá exibir a situação do aluno: 
+"Reprovado" se a média for menor que 7, "Aprovado" se a média for maior ou igual a 7, e "Parabéns, sua média é 10" se a média for igual a 10.'''
+
+def verificar_nota_valida(nota):
+    if nota < 0 or nota > 10:
+        print("Nota inválida. Por favor, digite uma nota entre 0.00 e 10.00.")
+        return False
+    else:
+        return True
+
+def qnt_notas(notas):
+    for i, nota in enumerate(notas):
+        print(f"{i+1}º nota: {nota:.2f}.")
+
+def calcular_media(notas):
+    soma = sum(notas)
+    media = soma / len(notas)
+    return media
+
+def verificar_situacao(media):
+    if media < 7:
+        print("Reprovado")
+    elif media == 10:
+        print("Parabéns, sua média é 10")
+    else:
+        print("Aprovado")
+
+notas = []
+
+while True:
+    try:
+        nota = float(input("Digite uma nota entre 0.00 e 10.00: "))
+        if verificar_nota_valida(nota):
+            notas.append(nota)
+            qnt_notas(notas)
+        
+        opcao = input("Deseja digitar outra nota? (S/N) ")
+        if opcao.upper() == "N":
+            break
+    except ValueError:
+        print("Por favor, digite um número válido.")
+
+if notas:
+    media = calcular_media(notas)
+    print(f"Média: {media:.2f}")
+    verificar_situacao(media)
+else:
+    print("Nenhuma nota foi digitada.")
